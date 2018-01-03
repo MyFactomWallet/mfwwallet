@@ -1,0 +1,79 @@
+{
+  "name": "mfwwallet",
+  "version": "0.1.0",
+  "description": "A wallet for containing Factom Tokens",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm dist/mfwwallet.js",
+    "coverage": "istanbul cover _mocha",
+    "coveralls": "npm run coverage && coveralls <coverage/lcov.info",
+    "lint": "standard index.js",
+    "prepublish": "npm run lint && npm run test && npm run build:docs && npm run build:dist",
+    "test": "npm run test:node",
+    "test:browser": "karma start karma.conf.js",
+    "test:node": "istanbul test mocha -- --reporter spec",
+    "build:docs": "documentation build index.js --github  -f md > ./docs/index.md",
+    "build:contributor": "contributor",
+    "build:no-dist": "browserify index.js -o dist/mfwwallet.js --debug -t [ babelify --presets [ es2015 react ] ]",
+    "build:dist": "browserify -r ./index.js:mfwwallet -s Util -t [ babelify --presets [ es2015 react ] ] > dist/mfwwallet.js"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MyFactomWallet/mfwwallet.git"
+  },
+  "keywords": [
+    "factom",
+    "utilties"
+  ],
+  "author": "steven masley <stevenmasley@gmail.com>",
+  "contributors": [],
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/MyFactomWallet/mfwwallet/issues"
+  },
+  "homepage": "https://github.com/MyFactomWallet/mfwwallet",
+  "dependencies": {
+    "clone": "^2.1.1",
+    "factombip44": "^0.1.4",
+    "factomjs-util": "^0.1.5",
+    "safe-buffer": "^5.1.1"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.3.0",
+    "browserify": "^14.4.0",
+    "contributor": "^0.1.25",
+    "coveralls": "^2.11.4",
+    "documentation": "^5.3.5",
+    "istanbul": "^0.4.1",
+    "karma": "^1.3.0",
+    "karma-browserify": "^5.0.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-detect-browsers": "2.2.5",
+    "karma-env-preprocessor": "^0.1.1",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-mocha": "^1.3.0",
+    "mocha": "^3.1.2",
+    "standard": "*",
+    "uglifyify": "^4.0.3"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "it"
+    ]
+  }
+}
